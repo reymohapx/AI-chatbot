@@ -9,7 +9,6 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-// === COHERE CONFIG ===
 const COHERE_API_KEY = process.env.COHERE_API_KEY;
 const COHERE_URL = 'https://api.cohere.ai/v1/generate';
 
@@ -19,11 +18,10 @@ app.post('/chat', async (req, res) => {
   console.log('📨 User message:', userMessage);
 
   try {
-    // Send user message directly to Cohere without translation
     const response = await axios.post(
       COHERE_URL,
       {
-        model: "command", // or "command-light"
+        model: "command",
         prompt: userMessage,
         max_tokens: 100,
         temperature: 0.7
@@ -39,7 +37,6 @@ app.post('/chat', async (req, res) => {
     const cohereReply = response.data?.generations?.[0]?.text?.trim() || 'No response.';
     console.log('🤖 Cohere reply:', cohereReply);
 
-    // Send response back to frontend
     res.json({ reply: cohereReply });
 
   } catch (error) {
@@ -49,10 +46,8 @@ app.post('/chat', async (req, res) => {
 });
 const path = require('path');
 
-// Serve static files from the 'public' folder
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Optional: serve index.html for any unknown routes (for SPA support)
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
