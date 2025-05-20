@@ -47,6 +47,15 @@ app.post('/chat', async (req, res) => {
     res.status(500).json({ reply: 'Error communicating with the AI.' });
   }
 });
+const path = require('path');
+
+// Serve static files from the 'public' folder
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Optional: serve index.html for any unknown routes (for SPA support)
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
 app.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
