@@ -176,10 +176,7 @@
       font-size: 0.9rem;
     }
 
-    /* For Mobile Devices – 320px — 480px */
     @media (min-width: 320px) and (max-width: 480px) {
-
-      /* Example: smaller font, stacked layout */
       #chatbox {
         max-height: 50vh;
         font-size: 0.9rem;
@@ -209,7 +206,6 @@
         width: 100%;
         margin-top: 20px;
         margin-bottom: 0;
-        /* remove bottom margin, since it's below */
       }
 
       #welcome-screen button {
@@ -219,7 +215,6 @@
       }
     }
 
-    /* iPads and Tablets – 481px — 768px */
     @media (min-width: 481px) and (max-width: 768px) {
       .chat-section {
         display: flex;
@@ -241,7 +236,6 @@
     }
 
 
-    /* Laptops and small screen – 769px — 1024px */
     @media (min-width: 769px) and (max-width: 1024px) {
       .chat-section {
         flex-direction: row;
@@ -257,7 +251,6 @@
       }
     }
 
-    /* Large screens and Desktops – 1025px — 1200px */
     @media (min-width: 1025px) and (max-width: 1200px) {
       .chat-section {
         flex-direction: row;
@@ -272,7 +265,6 @@
       }
     }
 
-    /* TV and Extra Large Screens – 1201px and more */
     @media (min-width: 1201px) {
       .chat-section {
         flex-direction: row;
@@ -320,7 +312,6 @@
 </head>
 
 <body>
-  <!-- Welcome Screen -->
   <div id="welcome-screen" style="
   position: fixed;
   inset: 0;
@@ -335,7 +326,6 @@
   background: black;
 ">
 
-    <!-- Background Video -->
     <video autoplay muted loop playsinline style="
     position: absolute;
     top: 0;
@@ -350,7 +340,6 @@
       Your browser does not support the video tag.
     </video>
 
-    <!-- Overlay Content -->
     <div style="z-index: 1;">
       <h1 class="welcome-heading">
         <i class="fas fa-shield-alt"></i> Welcome, Seeker of Knowledge
@@ -365,7 +354,7 @@
   font-size: 1.2rem;
   cursor: pointer;
   display: block;
-  margin: 10px auto 0;  /* top margin 10px, auto left/right for centering */
+  margin: 10px auto 0; 
 ">
         Summon the Orion
       </button>
@@ -469,7 +458,7 @@
         const response = await fetch('http://localhost:3000/chat', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ message: msg }) // removed lang parameter
+          body: JSON.stringify({ message: msg }) 
         });
 
         const data = await response.json();
@@ -507,10 +496,8 @@
       isDarkMode = !isDarkMode;
       document.body.style.backgroundColor = isDarkMode ? '#121212' : '#f9f9f9';
 
-      // Keep font color white regardless of mode
       document.body.style.color = 'white';
 
-      // Also force all children text color white for consistency
       document.querySelectorAll('*').forEach(el => {
         el.style.color = 'white';
       });
@@ -562,7 +549,6 @@
       }, 500);
     }
 
-    // On load, apply saved sound preference
     window.addEventListener('DOMContentLoaded', () => {
       const savedSound = localStorage.getItem('chatSound');
       if (savedSound !== null) {
@@ -570,13 +556,12 @@
       }
     });
 
-    // Save preference on change
     soundToggle.addEventListener('change', () => {
       localStorage.setItem('chatSound', soundToggle.checked ? 'on' : 'off');
     });
     async function typeWordByWord(text, element, delay = 300) {
       const words = text.split(' ');
-      element.textContent = ''; // clear existing text
+      element.textContent = '';
 
       for (let i = 0; i < words.length; i++) {
         element.textContent += (i === 0 ? '' : ' ') + words[i];
